@@ -10,7 +10,7 @@ public class KafkaConsumerListener {
 
     private Logger LOGGER = LoggerFactory.getLogger(KafkaConsumerListener.class);
 
-    @KafkaListener(topics = {"spring-boot-topic"}, concurrency = "2", groupId = "group-id")
+    @KafkaListener(topics = {"spring-boot-topic"}, concurrency = "2", groupId = "group-id", containerFactory = "consumer")
     public void listener(String message) {
         LOGGER.info("Mensaje recibido: " + message);
     }
