@@ -23,6 +23,7 @@ public class SpringBootProviderApplication {
 			kafkaTemplate.send("spring-boot-topic", "Mensaje 5 enviado desde Spring Boot");
 			kafkaTemplate.send("spring-boot-topic", "Mensaje 6 enviado desde Spring Boot");
 			kafkaTemplate.send("spring-boot-topic", "");
+			kafkaTemplate.send("spring-boot-topic", "Error");
 		};
 	}
 }
