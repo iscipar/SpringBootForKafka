@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.kafka.transaction.KafkaTransactionManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,13 +27,39 @@ public class KafkaProviderConfig {
         return properties;
     }
 
+    public Map<String, Object> producerConfigTransactional() {
+        Map<String, Object> properties = new HashMap<>();
+        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        properties.put(ProducerConfig.TRANSACTIONAL_ID_CONFIG, "transaction-id");
+        properties.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, true);
+        properties.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, 2);
+        return properties;
+    }
+
     @Bean
-    public ProducerFactory<String, String> providerFactory() {
+    public ProducerFactory<String, String> producerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfig());
     }
 
     @Bean
-    public KafkaTemplate<String, String> kafkaTemplate(ProducerFactory<String, String> producerFactory) {
-        return new KafkaTemplate<>(producerFactory);
+    public ProducerFactory<String, String> producerFactoryTransactional() {
+        return new DefaultKafkaProducerFactory<>(producerConfigTransactional());
+    }
+
+    @Bean
+    public KafkaTemplate<String, String> kafkaTemplate() {
+        return new KafkaTemplate<>(producerFactory());
+    }
+
+    @Bean
+    public KafkaTemplate<String, String> kafkaTemplateTransactional() {
+        return new KafkaTemplate<>(producerFactoryTransactional());
+    }
+
+    @Bean
+    public KafkaTransactionManager kafkaTransactionManager() {
+        return new KafkaTransactionManager<>(producerFactoryTransactional());
     }
 }

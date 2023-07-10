@@ -14,4 +14,9 @@ public class KafkaConsumerListener {
     public void listener(String message) {
         LOGGER.info("Mensaje recibido: " + message);
     }
+
+    @KafkaListener(topics = {"spring-boot-topic-transactional"}, groupId = "group-id-transactional", containerFactory = "consumerTransactional")
+    public void listenerTransactional(String message) {
+        LOGGER.info("Mensaje recibido: " + message);
+    }
 }
