@@ -21,8 +21,6 @@ public class KafkaTopicConfig {
         configurations.put(TopicConfig.MAX_MESSAGE_BYTES_CONFIG, "1048588");
 
         return TopicBuilder.name("spring-boot-topic")
-                .partitions(6)
-                .replicas(2)
                 .configs(configurations)
                 .build();
     }
