@@ -7,10 +7,10 @@
 		<artifactId>SpringBootForKafka</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>com.kafka.provider</groupId>
-	<artifactId>SpringBootProvider</artifactId>
+	<groupId>com.kafka.bo</groupId>
+	<artifactId>SpringBootBO</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SpringBootProvider</name>
+	<name>SpringBootBO</name>
 	<description>Spring Boot For Apache Kafka</description>
 	<properties>
 		<java.version>11</java.version>
@@ -28,9 +28,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.kafka.bo</groupId>
-			<artifactId>SpringBootBO</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
 		</dependency>
 	</dependencies>
 

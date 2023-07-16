@@ -16,6 +16,7 @@
 	<modules>
 		<module>SpringBootProvider</module>
 		<module>SpringBootConsumer</module>
+		<module>SpringBootBO</module>
 	</modules>
 	<properties>
 		<java.version>11</java.version>
