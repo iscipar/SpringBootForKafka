@@ -70,4 +70,12 @@ public class KafkaConsumerConfig {
         factory.setRecordFilterStrategy(record -> record.value().contains("ERROR"));
         return factory;
     }
+
+    @Bean
+    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, String>> consumerParallel() {
+        ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(consumerFactory());
+        factory.setConcurrency(3);
+        return factory;
+    }
 }

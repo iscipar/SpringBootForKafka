@@ -24,4 +24,9 @@ public class KafkaConsumerListener {
     public void listenerTransactional(String message) {
         LOGGER.info("Mensaje recibido: " + message);
     }
+
+    @KafkaListener(topics = {"spring-boot-topic-parallel"}, groupId = "group-id-parallel", containerFactory = "consumerParallel")
+    public void listenerParallel(String message) {
+        LOGGER.info("Mensaje recibido: " + message);
+    }
 }

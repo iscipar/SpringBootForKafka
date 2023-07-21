@@ -31,6 +31,7 @@ public class SpringBootProviderApplication {
 				kafkaTemplateTransactional.send("spring-boot-topic-transactional", "Mensaje enviado desde Spring Boot a través de una transacción");
 				return null;
 			});
+			kafkaTemplate.send("spring-boot-topic-parallel", "Mensaje enviado desde Spring Boot para ser leído por un consumidor en paralelo");
 		};
 	}
 }
