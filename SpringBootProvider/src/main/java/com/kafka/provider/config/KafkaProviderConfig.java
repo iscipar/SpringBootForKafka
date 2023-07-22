@@ -1,5 +1,6 @@
 package com.kafka.provider.config;
 
+import com.kafka.bo.dto.AdviceDTO;
 import com.kafka.bo.dto.RequestDTO;
 import com.kafka.bo.dto.ResponseDTO;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -74,6 +75,11 @@ public class KafkaProviderConfig {
     }
 
     @Bean
+    public ProducerFactory<String, AdviceDTO> producerFactoryAdvice() {
+        return new DefaultKafkaProducerFactory<>(producerConfigJson());
+    }
+
+    @Bean
     public KafkaTemplate<String, String> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
@@ -109,5 +115,10 @@ public class KafkaProviderConfig {
         factory.getContainerProperties().setMissingTopicsFatal(false);
         factory.setReplyTemplate(kafkaTemplate);
         return kafkaTemplate;
+    }
+
+    @Bean
+    public KafkaTemplate<String, AdviceDTO> kafkaTemplateAdvice() {
+        return new KafkaTemplate<>(producerFactoryAdvice());
     }
 }

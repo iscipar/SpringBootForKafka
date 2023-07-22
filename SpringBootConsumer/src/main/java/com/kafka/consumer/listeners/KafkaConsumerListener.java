@@ -1,5 +1,7 @@
 package com.kafka.consumer.listeners;
 
+import com.kafka.bo.dto.AdviceDTO;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
@@ -28,5 +30,20 @@ public class KafkaConsumerListener {
     @KafkaListener(topics = {"spring-boot-topic-parallel"}, groupId = "group-id-parallel", containerFactory = "consumerParallel")
     public void listenerParallel(String message) {
         LOGGER.info("Mensaje recibido: " + message);
+    }
+
+    @KafkaListener(topics = {"spring-boot-topic-advice"}, groupId = "group-id-advice", containerFactory = "consumerJson")
+    public void listenerJson(ConsumerRecord<String, AdviceDTO> consumerRecord) {
+        LOGGER.info("Logger [JSON] | clave recibida {} | valor recibido {}", consumerRecord.key(), consumerRecord.value());
+    }
+
+    @KafkaListener(topics = {"spring-boot-topic-advice"}, groupId = "group-id-advice", containerFactory = "consumerString")
+    public void listenerString(ConsumerRecord<String, String> consumerRecord) {
+        LOGGER.info("Logger [String] | clave recibida {} | valor recibido {}", consumerRecord.key(), consumerRecord.value());
+    }
+
+    @KafkaListener(topics = {"spring-boot-topic-advice"}, groupId = "group-id-advice", containerFactory = "consumerByteArray")
+    public void listenerByteArray(ConsumerRecord<String, byte[]> consumerRecord) {
+        LOGGER.info("Logger [ByteArray] | clave recibida {} | valor recibido {}", consumerRecord.key(), consumerRecord.value());
     }
 }
